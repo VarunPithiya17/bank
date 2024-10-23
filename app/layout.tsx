@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: "FinTrust",
   description: "FinTrust is modern banking platform for everyone",
   icons: {
-    icon: '/icon/logo.svg'
+    icon: '/icons/logo.svg'
   }
 };
 
