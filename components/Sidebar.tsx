@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Footer from './Footer';
 
 interface SidebarProps {
   user: string;
@@ -16,7 +17,7 @@ const Sidebar = ({ user }: SidebarProps) => {
   return (
     <section className="sidebar">
       <nav className="flex flex-col gap-4">
-
+        
         {/* Logo and App Name */}
         <Link href="/" className="mb-12 cursor-pointer flex items-center gap-2">
           <Image 
@@ -40,28 +41,27 @@ const Sidebar = ({ user }: SidebarProps) => {
               key={item.label} 
               className={cn('sidebar-link', { 'bg-bank-gradient': isActive })}
             >
+              {/* Sidebar Icon */}
               <div className="relative size-6">
                 <Image 
                   src={item.imgURL}
                   alt={item.label}
                   fill
-                  className={cn({'brightness-[3] invert-0':isActive})}
+                  className={cn({'brightness-[3] invert-0': isActive})}
                 />
-
               </div>
-              <p className={cn("sidebar-label",{"text-white":isActive})}>
-                  {item.label}
 
-                </p>
+              {/* Sidebar Label */}
+              <p className={cn("sidebar-label", {"text-white": isActive})}>
+                {item.label}
+              </p>
             </Link>
           );
         })}
-
-        USER
       </nav>
 
-
-      FOOTER
+      {/* Footer Component */}
+      <Footer user={user} />
     </section>
   );
 };

@@ -12,27 +12,41 @@ import { sidebarLinks } from '@/constants';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import Footer from './Footer';
+
+interface MobileNavProps {
+  user: {
+    name: string;
+  };
+}
 
 const MobileNav = ({ user }: MobileNavProps) => {
-  const pathname = usePathname();
+  const pathname = usePathname(); // Get the current path
 
   return (
     <section className="w-full max-w-[264px]">
       <Sheet>
+        {/* Trigger for opening the sidebar */}
         <SheetTrigger>
           <Image
             src="/icons/hamburger.svg"
             width={30}
             height={30}
-            alt="menu"
+            alt="Menu"
             className="cursor-pointer"
           />
         </SheetTrigger>
 
+        {/* Sidebar Content */}
         <SheetContent side="left" className="border-none bg-white">
           {/* Logo and App Name */}
           <Link href="/" className="mb-12 cursor-pointer flex items-center gap-2 px-4">
-            <Image src="/icons/logo.svg" width={34} height={34} alt="FinTrust logo" />
+            <Image
+              src="/icons/logo.svg"
+              width={34}
+              height={34}
+              alt="FinTrust logo"
+            />
             <h1 className="text-[26px] font-bold text-black-1">FinTrust</h1>
           </Link>
 
@@ -72,6 +86,9 @@ const MobileNav = ({ user }: MobileNavProps) => {
                 })}
               </nav>
             </SheetClose>
+
+            {/* Footer with user details */}
+            <Footer user={user} type="mobile" />
           </div>
         </SheetContent>
       </Sheet>
