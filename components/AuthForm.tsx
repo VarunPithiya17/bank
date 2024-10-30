@@ -24,6 +24,7 @@ import { useRouter } from 'next/navigation';
 
 // Import actions (replace with your own logic)
 import { getLoggedInUser, signIn, signUp } from '@/lib/actions/user.actions';
+import PlaidLink from './PlaidLink';
 
 interface AuthFormProps {
   type: string;  // 'sign-up' or 'sign-in'
@@ -33,7 +34,6 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  
 
   // Zod schema validation based on auth type
   const formSchema = authFormSchema(type);
@@ -52,9 +52,22 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
     setIsLoading(true);
 
     try {
-      // Call sign-up logic
       if (type === 'sign-up') {
-        const newUser = await signUp(data);
+        const userData = {
+          firstName: data.firstName!,
+          lastName: data.lastName!,
+          address1: data.address1!,
+          city: data.city!,
+          state: data.state!,
+          postalCode: data.postalCode!,
+          dateOfBirth: data.dateOfBirth!,
+          ssn: data.ssn!,
+          email: data.email!,
+          password: data.password!,
+        };
+
+        // Call sign-up logic
+        const newUser = await signUp(userData);
         setUser(newUser);
       }
 
@@ -97,7 +110,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
       {/* Form or User Linked Section */}
       {user ? (
         <div className="flex flex-col gap-4">
-          {/* PlaidLink Component Placeholder */}
+          <PlaidLink user={user} variant="primary" />
         </div>
       ) : (
         <Form {...form}>
